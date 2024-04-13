@@ -1,6 +1,6 @@
 # Assignment #4 – Send and receive messages via MQTT
 # Date: April 01, 2024
-# Group 3:
+# Group 4:
 #  - Cong Lanh Hoang
 #  - Einer Cupino
 #  - Jasper Jan Tan

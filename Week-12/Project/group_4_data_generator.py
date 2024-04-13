@@ -1,6 +1,6 @@
 # Final Project
 # Date: April 12, 2024
-# Group 1:
+# Group 4:
 #  - Cong Lanh Hoang
 #  - Einer Cupino
 #  - Jasper Jan Tan
