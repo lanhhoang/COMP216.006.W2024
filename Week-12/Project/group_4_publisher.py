@@ -1,6 +1,6 @@
 # Final Project
 # Date: April 12, 2024
-# Group 1:
+# Group 4:
 #  - Cong Lanh Hoang
 #  - Einer Cupino
 #  - Jasper Jan Tan
@@ -12,7 +12,7 @@ import random
 import time
 import paho.mqtt.client as mqtt
 
-from group_1_data_generator import TemperatureGenerator
+from group_4_data_generator import TemperatureGenerator
 
 class Publisher:
   def __init__(self, broker_address, broker_port, topic):

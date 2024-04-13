@@ -1,6 +1,6 @@
 # Assignment #3 – Data Generator
 # Date: March 22, 2024
-# Group 3:
+# Group 4:
 #  - Cong Lanh Hoang
 #  - Einer Cupino
 #  - Jasper Jan Tan

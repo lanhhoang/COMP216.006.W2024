@@ -1,6 +1,6 @@
 # Final Project
 # Date: April 12, 2024
-# Group 1:
+# Group 4:
 #  - Cong Lanh Hoang
 #  - Einer Cupino
 #  - Jasper Jan Tan
@@ -10,12 +10,12 @@
 import time
 from tkinter import *
 from threading import Thread
-from group_1_publisher import Publisher
+from group_4_subscriber import Subscriber
 
 class Application(Tk):
   def __init__(self, title, geometry):
     Tk.__init__(self)
-    self.background_color = "#90EE90"
+    self.background_color = "#EE9090"
 
     self.title(title)
     self.geometry(geometry)
@@ -26,7 +26,7 @@ class Application(Tk):
     container.place(relx=0.05, rely=0.05, relwidth=0.9, relheight=0.9)
     
     self.create_ui(container)
-    self.publisher = None
+    self.subscriber = None
   
   def create_ui(self, parent = None):
     if not parent: parent = self
@@ -36,7 +36,7 @@ class Application(Tk):
     parent.rowconfigure(list(range(5)), weight=1, uniform="a")
 
     # Create a label for the name of the data-entry form with bold & italic font
-    heading_label = Label(parent, text="MQTT Publisher", font=("Calibri", 32, "bold", "italic"), bg=self.background_color)
+    heading_label = Label(parent, text="MQTT Subscriber", font=("Calibri", 32, "bold", "italic"), bg=self.background_color)
     heading_label.grid(row=0, column=0, columnspan=9, sticky="new")
 
     # Create first column with the following labels
@@ -52,11 +52,11 @@ class Application(Tk):
     log_label = Label(parent, text="Log:", font=("Calibri", 14, "bold"), bg=self.background_color)
     log_label.grid(row=1, column=5, columnspan=4, sticky="nw")
 
-    # Create a button to start publisher
+    # Create a button to start subscriber
     start_button = Button(parent, text="Start", font=("Calibri", 14, "bold"), highlightbackground=self.background_color, command=self.start)
     start_button.grid(row=4, column=0, sticky="new", padx=5, pady=5)
 
-    # Create a button to stop publisher
+    # Create a button to stop subscriber
     stop_button = Button(parent, text="Stop", font=("Calibri", 14, "bold"), highlightbackground=self.background_color, command=self.stop)
     stop_button.grid(row=4, column=1, sticky="new", padx=5, pady=5)
 
@@ -85,12 +85,12 @@ class Application(Tk):
     broker_port = int(self.broker_port.get())
     topic = self.topic.get()
 
-    # Initialize publisher
-    self.publisher = Publisher(broker_address, broker_port, topic)
-    # Start publisher in a separate thread
-    self.publisher_thread = Thread(target=self.publisher.start)
-    self.publisher_thread.daemon = True
-    self.publisher_thread.start()
+    # Initialize subscriber
+    self.subscriber = Subscriber(broker_address, broker_port, topic)
+    # Start subscriber in a separate thread
+    self.subscriber_thread = Thread(target=self.subscriber.start)
+    self.subscriber_thread.daemon = True
+    self.subscriber_thread.start()
 
     # Start a thread to continuously update the log
     self.update_log_thread = Thread(target=self.update_log)
@@ -98,10 +98,10 @@ class Application(Tk):
     self.update_log_thread.start()
 
     # Update log with message
-    self.log.insert(END, "Publisher started\n")
+    self.log.insert(END, "Subscriber started\n")
   
   def stop(self):
-    self.stop_thread = Thread(target=self.stop_publisher)
+    self.stop_thread = Thread(target=self.stop_subscriber)
     self.stop_thread.daemon = True
     self.stop_thread.start()
 
@@ -110,21 +110,21 @@ class Application(Tk):
   
   def update_log(self):
     while True:
-      if self.publisher:
-        log_content = self.publisher.log
+      if self.subscriber:
+        log_content = self.subscriber.log
         if log_content:
           self.log.delete("1.0", END)  # Clear previous content
           self.log.insert(END, log_content)
       time.sleep(1)
   
-  def stop_publisher(self):
-    self.publisher.stop()
-    self.publisher = None
+  def stop_subscriber(self):
+    self.subscriber.stop()
+    self.subscriber = None
     self.log.delete("1.0", END)
-    self.log.insert(END, "Publisher stopped\n")
+    self.log.insert(END, "Subscriber stopped\n")
 
 if __name__ == "__main__":
-  title = "MQTT Publisher"
+  title = "MQTT Subscriber"
   geometry = "1280x600"
   app = Application(title, geometry)
   app.mainloop()

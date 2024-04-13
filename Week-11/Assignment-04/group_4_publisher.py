@@ -1,6 +1,6 @@
 # Assignment #4 – Send and receive messages via MQTT
 # Date: April 01, 2024
-# Group 3:
+# Group 4:
 #  - Cong Lanh Hoang
 #  - Einer Cupino
 #  - Jasper Jan Tan
@@ -11,7 +11,7 @@ import json
 import time
 import paho.mqtt.client as mqtt
 
-from group_1_util import TemperatureGenerator
+from group_4_util import TemperatureGenerator
 
 class Publisher:
   def __init__(self, broker_address, broker_port, topic):
@@ -44,7 +44,7 @@ class Publisher:
     while self.__running:
       payload = self.generate_data()
       self.publish(payload)
-      print(f"Data {payload} published to {topic}")
+      print(f"Data {payload} published to {self.__topic}")
       time.sleep(5)
   
   # Start the client and begin publishing data
